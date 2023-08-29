@@ -12,8 +12,12 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class OnlineBookStoreApplication {
-    @Autowired
     private BookService bookService;
+
+    @Autowired
+    public OnlineBookStoreApplication(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(OnlineBookStoreApplication.class, args);
