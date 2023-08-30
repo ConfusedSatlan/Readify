@@ -20,12 +20,12 @@ public class Book {
     private String title;
     @Column(nullable = false, name = "author")
     private String author;
-    @Column(unique = true, name = "isbn")
+    @Column(nullable = false, unique = true, name = "isbn")
     private String isbn;
     @Column(nullable = false, name = "price")
     private BigDecimal price;
     @Column(name = "description")
     private String description;
-    @Column(name = "coverImage")
+    @Column(name = "cover_image")
     private String coverImage;
 }
