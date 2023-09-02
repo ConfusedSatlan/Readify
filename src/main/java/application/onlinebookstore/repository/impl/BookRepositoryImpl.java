@@ -1,9 +1,10 @@
 package application.onlinebookstore.repository.impl;
 
-import application.onlinebookstore.exception.EntityNotFoundException;
+import application.onlinebookstore.exception.DataProcessingException;
 import application.onlinebookstore.model.Book;
 import application.onlinebookstore.repository.BookRepository;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -33,7 +34,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new EntityNotFoundException("Can't insert book " + book, e);
+            throw new DataProcessingException("Can't insert book " + book, e);
         } finally {
             if (session != null) {
                 session.close();
@@ -42,25 +43,21 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Book findByTitle(String title) {
+    public Optional<Book> findByTitle(String title) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery(
-                    "FROM Book as b WHERE b.title = :title", Book.class)
-                    .setParameter("title", title).getSingleResult();
+            return Optional.of(session.get(Book.class, title));
         } catch (Exception e) {
-            throw new EntityNotFoundException("Can't get book by title from db: "
+            throw new DataProcessingException("Can't get book by title from db: "
                     + title, e);
         }
     }
 
     @Override
-    public Book findById(Long id) {
+    public Optional<Book> findById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery(
-                            "FROM Book as b WHERE b.id = :id", Book.class)
-                    .setParameter("id", id).getSingleResult();
+            return Optional.of(session.get(Book.class, id));
         } catch (Exception e) {
-            throw new EntityNotFoundException("Can't get book by id from db: "
+            throw new DataProcessingException("Can't get book by id from db: "
                     + id, e);
         }
     }
@@ -71,7 +68,7 @@ public class BookRepositoryImpl implements BookRepository {
             return session.createQuery(
                     "FROM Book", Book.class).getResultList();
         } catch (Exception e) {
-            throw new EntityNotFoundException("Can't get all books from db.", e);
+            throw new DataProcessingException("Can't get all books from db.", e);
         }
     }
 }
