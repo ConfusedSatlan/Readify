@@ -12,7 +12,6 @@
 	<groupId>mate-academy</groupId>
 	<artifactId>hibernate-relations-hw</artifactId>
 	<version>1.0-SNAPSHOT</version>
-
 	<properties>
 		<jdk.version>17</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,6 +21,8 @@
 			https://raw.githubusercontent.com/mate-academy/style-guides/master/java/checkstyle.xml
 		</maven.checkstyle.plugin.configLocation>
 		<maven.checkstyle.plugin.configLocation>checkstyle.xml</maven.checkstyle.plugin.configLocation>
+		<lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
+		<mapstruct.version>1.5.5.Final</mapstruct.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -37,13 +38,18 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -57,7 +63,11 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -67,11 +77,6 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.33</version>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -98,6 +103,32 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>${lombok.mapstruct.binding.version}</version>
+						</path>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${mapstruct.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>3.1.1</version>
 				<executions>
@@ -114,6 +145,7 @@
 					<consoleOutput>true</consoleOutput>
 					<failsOnError>true</failsOnError>
 					<linkXRef>false</linkXRef>
+					<sourceDirectories>${project.build.sourceDirectory}</sourceDirectories>
 				</configuration>
 			</plugin>
 
