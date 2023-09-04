@@ -4,6 +4,7 @@ import application.onlinebookstore.config.MapperConfig;
 import application.onlinebookstore.dto.BookDto;
 import application.onlinebookstore.dto.CreateBookRequestDto;
 import application.onlinebookstore.model.Book;
+import java.util.Optional;
 import org.mapstruct.Mapper;
 
 @Mapper(config = MapperConfig.class)
