@@ -45,7 +45,7 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public Optional<Book> findByTitle(String title) {
         try (Session session = sessionFactory.openSession()) {
-            return Optional.of(session.get(Book.class, title));
+            return Optional.ofNullable(session.get(Book.class, title));
         } catch (Exception e) {
             throw new DataProcessingException("Can't get book by title from db: "
                     + title, e);
@@ -55,7 +55,7 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public Optional<Book> findById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return Optional.of(session.get(Book.class, id));
+            return Optional.ofNullable(session.get(Book.class, id));
         } catch (Exception e) {
             throw new DataProcessingException("Can't get book by id from db: "
                     + id, e);
