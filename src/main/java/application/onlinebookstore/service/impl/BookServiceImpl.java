@@ -29,15 +29,16 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto getBookById(Long id) {
-        return bookMapper.toDto(bookRepository.findById(id).
-                orElseThrow(
+        return bookMapper.toDto(bookRepository.findById(id)
+                .orElseThrow(
                         () -> new EntityNotFoundException("Can't find book by id: " + id)
                 ));
     }
 
     @Override
     public List<BookDto> getBookByTitle(String title) {
-        List<Book> allByTitleContainsIgnoreCase = bookRepository.findAllByTitleContainsIgnoreCase(title);
+        List<Book> allByTitleContainsIgnoreCase = bookRepository
+                .findAllByTitleContainsIgnoreCase(title);
         if (allByTitleContainsIgnoreCase.isEmpty()) {
             throw new EntityNotFoundException("Can't find book by title: " + title);
         }
@@ -48,7 +49,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> getBookByAuthor(String author) {
-        List<Book> allByAuthorContainsIgnoreCase = bookRepository.findAllByAuthorContainsIgnoreCase(author);
+        List<Book> allByAuthorContainsIgnoreCase = bookRepository
+                .findAllByAuthorContainsIgnoreCase(author);
         if (allByAuthorContainsIgnoreCase.isEmpty()) {
             throw new EntityNotFoundException("Can't find book by author: " + author);
         }
