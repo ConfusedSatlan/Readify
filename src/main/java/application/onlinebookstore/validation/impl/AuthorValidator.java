@@ -6,7 +6,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
 
 public class AuthorValidator implements ConstraintValidator<Author, String> {
-    private static final String PATTERN_OF_ISBN = "^[a-zA-Z.]*$";
+    private static final String PATTERN_OF_ISBN = "^[A-Za-z\\s]+$";
 
     @Override
     public boolean isValid(String author,
