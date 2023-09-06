@@ -4,15 +4,19 @@ import application.onlinebookstore.model.Book;
 import application.onlinebookstore.repository.SpecificationProvider;
 import java.util.Arrays;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TitleSpecificationProvider implements SpecificationProvider<Book> {
+    private static final String TITLE_NAME = "title";
+
     @Override
     public String getKey() {
-        return "title";
+        return TITLE_NAME;
     }
 
     public Specification<Book> getSpecification(String[] param) {
-        return (root, query, criteriaBuilder) -> root.get("title")
+        return (root, query, criteriaBuilder) -> root.get(TITLE_NAME)
                 .in(Arrays.stream(param)
                         .toArray());
     }

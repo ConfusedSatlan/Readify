@@ -60,4 +60,9 @@ public class BookController {
     public List<BookDto> search(BookSearchParametersDto searchParameters) {
         return bookService.search(searchParameters);
     }
+
+    @PutMapping("/{id}")
+    public BookDto update(@PathVariable Long id, @RequestBody CreateBookRequestDto updatedBook) {
+        return bookService.update(id, updatedBook);
+    }
 }
