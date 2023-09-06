@@ -20,17 +20,27 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
     public Specification<Book> build(BookSearchParametersDto searchParameters) {
         Specification<Book> spec = Specification.where(null);
         String[] titles = searchParameters.titles();
-        if (titles != null && titles.length > ZERO_LENGTH) {
-            spec = spec.and(specificationProviderManager
-                    .getSpecificationProvider(TITLE_NAME)
-                    .getSpecification(titles));
+        if (validationArray(titles)) {
+            spec = getSpecificationByParam(titles, TITLE_NAME);
         }
         String[] authors = searchParameters.authors();
-        if (authors != null && authors.length > ZERO_LENGTH) {
-            spec = spec.and(specificationProviderManager
-                    .getSpecificationProvider(AUTHOR_NAME)
-                    .getSpecification(authors));
+        if (validationArray(authors)) {
+            spec = getSpecificationByParam(authors, AUTHOR_NAME);
         }
         return spec;
+    }
+
+    private Specification<Book> getSpecificationByParam(String[] items, String name) {
+        Specification<Book> spec = Specification.where(null);
+        if (validationArray(items)) {
+            spec = spec.and(specificationProviderManager
+                    .getSpecificationProvider(name)
+                    .getSpecification(items));
+        }
+        return spec;
+    }
+
+    private boolean validationArray(String[] items) {
+        return (items != null && items.length > ZERO_LENGTH);
     }
 }
