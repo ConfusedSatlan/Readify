@@ -6,13 +6,15 @@ import java.util.Arrays;
 import org.springframework.data.jpa.domain.Specification;
 
 public class AuthorSpecificationProvider implements SpecificationProvider<Book> {
+    private static final String AUTHOR_NAME = "author";
+
     @Override
     public String getKey() {
-        return "author";
+        return AUTHOR_NAME;
     }
 
     public Specification<Book> getSpecification(String[] param) {
-        return (root, query, criteriaBuilder) -> root.get("author")
+        return (root, query, criteriaBuilder) -> root.get(AUTHOR_NAME)
                 .in(Arrays.stream(param)
                         .toArray());
     }
