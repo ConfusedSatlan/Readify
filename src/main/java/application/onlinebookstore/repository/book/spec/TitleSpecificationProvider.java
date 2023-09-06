@@ -4,7 +4,9 @@ import application.onlinebookstore.model.Book;
 import application.onlinebookstore.repository.SpecificationProvider;
 import java.util.Arrays;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TitleSpecificationProvider implements SpecificationProvider<Book> {
     private static final String TITLE_NAME = "title";
 
