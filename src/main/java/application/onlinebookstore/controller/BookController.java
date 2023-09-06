@@ -60,7 +60,4 @@ public class BookController {
     public List<BookDto> search(BookSearchParametersDto searchParameters) {
         return bookService.search(searchParameters);
     }
-
-    @PutMapping
-    public BookDto updateBook(@RequestBody @Valid )
 }
