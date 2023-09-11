@@ -36,12 +36,12 @@ public class BookController {
 
     @GetMapping("/by-title")
     public List<BookDto> getBookByTitle(@RequestParam String title) {
-        return bookService.getBookByTitle(title);
+        return bookService.getBooksByTitle(title);
     }
 
     @GetMapping("/by-author")
     public List<BookDto> getBookByAuthor(@RequestParam String author) {
-        return bookService.getBookByAuthor(author);
+        return bookService.getBooksByAuthor(author);
     }
 
     @PostMapping
