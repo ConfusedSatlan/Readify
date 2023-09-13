@@ -20,11 +20,11 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
     public Specification<Book> build(BookSearchParametersDto searchParameters) {
         Specification<Book> spec = Specification.where(null);
         String[] titles = searchParameters.titles();
-        if (isValidationParameters(titles)) {
+        if (isParametersValid(titles)) {
             spec = getSpecificationByParam(titles, TITLE_NAME);
         }
         String[] authors = searchParameters.authors();
-        if (isValidationParameters(authors)) {
+        if (isParametersValid(authors)) {
             spec = getSpecificationByParam(authors, AUTHOR_NAME);
         }
         return spec;
@@ -32,7 +32,7 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
 
     private Specification<Book> getSpecificationByParam(String[] items, String name) {
         Specification<Book> spec = Specification.where(null);
-        if (isValidationParameters(items)) {
+        if (isParametersValid(items)) {
             spec = spec.and(specificationProviderManager
                     .getSpecificationProvider(name)
                     .getSpecification(items));
@@ -40,7 +40,7 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
         return spec;
     }
 
-    private boolean isValidationParameters(String[] items) {
+    private boolean isParametersValid(String[] items) {
         return (items != null && items.length > ZERO_LENGTH);
     }
 }
