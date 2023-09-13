@@ -6,11 +6,11 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
 
 public class AuthorValidator implements ConstraintValidator<Author, String> {
-    private static final String PATTERN_OF_ISBN = "^[a-zA-Z.]*$";
+    private static final String AUTHOR_NAME_PATTERN = "^[a-zA-Z.]*$";
 
     @Override
     public boolean isValid(String author,
                            ConstraintValidatorContext constraintValidatorContext) {
-        return author != null && Pattern.compile(PATTERN_OF_ISBN).matcher(author).matches();
+        return author != null && Pattern.compile(AUTHOR_NAME_PATTERN).matcher(author).matches();
     }
 }
