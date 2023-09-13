@@ -48,14 +48,14 @@ public class BookController {
     @Operation(summary = "Get book by title",
             description = "Get a book in repository by title")
     public List<BookDto> getBookByTitle(@RequestParam String title) {
-        return bookService.getBookByTitle(title);
+        return bookService.getBooksByTitle(title);
     }
 
     @GetMapping("/by-author")
     @Operation(summary = "Get book by author",
             description = "Get a book in repository by author")
     public List<BookDto> getBookByAuthor(@RequestParam String author) {
-        return bookService.getBookByAuthor(author);
+        return bookService.getBooksByAuthor(author);
     }
 
     @PostMapping
