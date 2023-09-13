@@ -11,6 +11,8 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +35,7 @@ public class BookController {
     @Operation(summary = "Get all books",
             description = "Get a list of all available books "
                     + "or you can set pageable ?page=?&size=?")
-    public List<BookDto> getAll(Pageable pageable) {
+    public List<BookDto> getAll(Authentication authentication, Pageable pageable) {
         return bookService.getAll(pageable);
     }
 
@@ -58,6 +60,7 @@ public class BookController {
         return bookService.getBookByAuthor(author);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     @Operation(summary = "Create a new book",
             description = "Create a book and save in repository")
@@ -65,6 +68,7 @@ public class BookController {
         return bookService.save(bookDto);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete existing book",

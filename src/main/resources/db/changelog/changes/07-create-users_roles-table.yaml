@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-users_roles
+      author: bookstore
+      changes:
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: user_roles_user_id_fk
+                    references: user(id)
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: user_roles_role_id_fk
+                    references: role(id)
