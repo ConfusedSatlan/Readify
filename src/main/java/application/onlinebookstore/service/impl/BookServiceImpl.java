@@ -37,24 +37,18 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> getBookByTitle(String title) {
+    public List<BookDto> getBooksByTitle(String title) {
         List<Book> allByTitleContainsIgnoreCase = bookRepository
                 .findAllByTitleContainsIgnoreCase(title);
-        if (allByTitleContainsIgnoreCase.isEmpty()) {
-            throw new EntityNotFoundException("Can't find book by title: " + title);
-        }
         return allByTitleContainsIgnoreCase.stream()
                 .map(bookMapper::toDto)
                 .toList();
     }
 
     @Override
-    public List<BookDto> getBookByAuthor(String author) {
+    public List<BookDto> getBooksByAuthor(String author) {
         List<Book> allByAuthorContainsIgnoreCase = bookRepository
                 .findAllByAuthorContainsIgnoreCase(author);
-        if (allByAuthorContainsIgnoreCase.isEmpty()) {
-            throw new EntityNotFoundException("Can't find book by author: " + author);
-        }
         return allByAuthorContainsIgnoreCase.stream()
                 .map(bookMapper::toDto)
                 .toList();
