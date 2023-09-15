@@ -35,7 +35,7 @@ public class BookController {
     @Operation(summary = "Get all books",
             description = "Get a list of all available books "
                     + "or you can set pageable ?page=?&size=?")
-    public List<BookDto> getAll(Authentication authentication, Pageable pageable) {
+    public List<BookDto> getAll(Pageable pageable) {
         return bookService.getAll(pageable);
     }
 

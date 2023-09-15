@@ -14,9 +14,9 @@ public record UserRegisterRequestDto(@NotNull
                                      @Email
                                      String email,
                                      @NotNull
-                                     String first_name,
+                                     String firstName,
                                      @NotNull
-                                     String last_name,
+                                     String lastName,
                                      @NotNull
                                      @Password
                                      String password,
