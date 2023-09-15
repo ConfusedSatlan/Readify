@@ -18,8 +18,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @RequiredArgsConstructor
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final String HEADER_NAME = "Authorization";
-    private final String BEARER_NAME_TOKEN = "Bearer ";
+    private static final String HEADER_NAME_LOGIN = "Authorization";
+    private static final String BEARER_NAME_TOKEN = "Bearer ";
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String getToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(HEADER_NAME);
+        String bearerToken = request.getHeader(HEADER_NAME_LOGIN);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_NAME_TOKEN)) {
             return bearerToken.substring(BEARER_NAME_TOKEN.length());
         }
