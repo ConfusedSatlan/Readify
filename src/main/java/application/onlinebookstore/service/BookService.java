@@ -11,9 +11,9 @@ public interface BookService {
 
     BookDto getBookById(Long id);
 
-    List<BookDto> getBookByTitle(String title);
+    List<BookDto> getBooksByTitle(String title);
 
-    List<BookDto> getBookByAuthor(String author);
+    List<BookDto> getBooksByAuthor(String author);
 
     List<BookDto> getAll(Pageable pageable);
 
