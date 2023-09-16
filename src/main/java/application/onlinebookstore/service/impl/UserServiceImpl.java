@@ -26,13 +26,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto register(UserRegisterRequestDto request) throws RegistrationException {
         if (userRepository.findByEmail(request.email()).isPresent()) {
-            throw new RegistrationException("User is already registered!");
+            throw new RegistrationException("User with email: " + request.email()
+                    + " is already registered! Use another email or login with: "
+                    + request.email());
         }
         User user = userMapper.toModel(request);
         user.setPassword(passwordEncoder.encode(request.password()));
-        user.setRoles(Set.of(roleRepository.findByName(Role.RoleName.ROLE_USER).orElseThrow(
-                () -> new EntityNotFoundException("Can't find default role for user")
-        )));
-        return userMapper.toUserResponse(userRepository.save(user));
+        Role roleForUser = roleRepository.findByName(Role.RoleName.ROLE_USER).orElseThrow(
+                () -> new EntityNotFoundException("Can't find default role: "
+                        + Role.RoleName.ROLE_USER
+                        + " for user with email: "
+                        + request.email()));
+        user.setRoles(Set.of(roleForUser));
+        return userMapper.toUserResponseDto(userRepository.save(user));
     }
 }
