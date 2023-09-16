@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: insert-user_role
-      author: nikita
+      author: team
       changes:
         - insert:
             tableName: user_role

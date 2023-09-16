@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: insert-books
-      author: nikita
+      author: team
       changes:
         - insert:
             tableName: book
