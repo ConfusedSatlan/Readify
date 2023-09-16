@@ -1,6 +1,7 @@
 package application.onlinebookstore.controller;
 
 import application.onlinebookstore.dto.book.BookDto;
+import application.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
 import application.onlinebookstore.dto.book.BookSearchParametersDto;
 import application.onlinebookstore.dto.book.CreateBookRequestDto;
 import application.onlinebookstore.service.BookService;
@@ -79,7 +80,7 @@ public class BookController {
     @GetMapping("/search")
     @Operation(summary = "Find books with several parameters ",
             description = "Create book and save in DB")
-    public List<BookDto> search(BookSearchParametersDto searchParameters) {
+    public List<BookDtoWithoutCategoryIds> search(BookSearchParametersDto searchParameters) {
         return bookService.search(searchParameters);
     }
 
