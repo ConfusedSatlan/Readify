@@ -1,6 +1,5 @@
 package application.onlinebookstore.service;
 
-import application.onlinebookstore.dto.book.BookDto;
 import application.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
 import application.onlinebookstore.dto.category.CategoryDto;
 import application.onlinebookstore.dto.category.CategorySearchParametersDto;

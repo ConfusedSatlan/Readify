@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class CategorySpecificationProviderManager implements SpecificationProviderManager<Category> {
+public class CategorySpecificationProviderManager implements
+        SpecificationProviderManager<Category> {
     private final List<SpecificationProvider<Category>> categorySpecificationProviders;
 
     @Override

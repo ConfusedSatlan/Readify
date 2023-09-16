@@ -1,6 +1,5 @@
 package application.onlinebookstore.service.impl;
 
-import application.onlinebookstore.dto.book.BookDto;
 import application.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
 import application.onlinebookstore.dto.category.CategoryDto;
 import application.onlinebookstore.dto.category.CategorySearchParametersDto;
@@ -64,8 +63,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDto> search(CategorySearchParametersDto searchParameters) {
-        Specification<Category> categorySpecification = categorySpecificationBuilder.build(searchParameters);
-        return categoryRepository.findAll(categorySpecification).stream()
+        Specification<Category> categorySpecification =
+                categorySpecificationBuilder.build(searchParameters);
+        return categoryRepository
+                .findAll(categorySpecification).stream()
                 .map(categoryMapper::toDto)
                 .toList();
     }

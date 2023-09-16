@@ -1,10 +1,6 @@
 package application.onlinebookstore.controller;
 
-
-import application.onlinebookstore.dto.book.BookDto;
 import application.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
-import application.onlinebookstore.dto.book.BookSearchParametersDto;
-import application.onlinebookstore.dto.book.CreateBookRequestDto;
 import application.onlinebookstore.dto.category.CategoryDto;
 import application.onlinebookstore.dto.category.CategorySearchParametersDto;
 import application.onlinebookstore.dto.category.CreateCategoryRequestDto;
@@ -92,7 +88,8 @@ public class CategoryController {
     @PutMapping("/{id}")
     @Operation(summary = "Update caategory",
             description = "Update category in DB")
-    public CategoryDto update(@PathVariable Long id, @RequestBody CreateCategoryRequestDto updatedBook) {
+    public CategoryDto update(@PathVariable Long id,
+                              @RequestBody CreateCategoryRequestDto updatedBook) {
         return categoryService.update(id, updatedBook);
     }
 }

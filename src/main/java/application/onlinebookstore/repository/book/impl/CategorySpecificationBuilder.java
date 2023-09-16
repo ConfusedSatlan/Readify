@@ -1,8 +1,6 @@
 package application.onlinebookstore.repository.book.impl;
 
-import application.onlinebookstore.dto.book.BookSearchParametersDto;
 import application.onlinebookstore.dto.category.CategorySearchParametersDto;
-import application.onlinebookstore.model.Book;
 import application.onlinebookstore.model.Category;
 import application.onlinebookstore.repository.SpecificationBuilder;
 import application.onlinebookstore.repository.SpecificationProviderManager;
@@ -13,9 +11,11 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class CategorySpecificationBuilder implements SpecificationBuilder<Category, CategorySearchParametersDto> {
+public class CategorySpecificationBuilder implements
+        SpecificationBuilder<Category, CategorySearchParametersDto> {
     private static final String NAME_COLUMN = "name";
-    private SpecificationProviderManager<Category> specificationProviderManager;
+    private SpecificationProviderManager<Category>
+            specificationProviderManager;
 
     @Override
     public Specification<Category> build(CategorySearchParametersDto searchParameters) {
