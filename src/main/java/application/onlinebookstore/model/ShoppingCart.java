@@ -9,8 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.math.BigDecimal;
 import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,41 +20,27 @@ import org.hibernate.annotations.Where;
 
 @Data
 @Entity
-@SQLDelete(sql = "UPDATE book SET is_deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE Shopping_cart SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
-@Table(name = "book")
-public class Book {
+@Table(name = "shopping_cart")
+public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, name = "title")
-    private String title;
-    @Column(nullable = false, name = "author")
-    private String author;
-    @Column(nullable = false, unique = true, name = "isbn")
-    private String isbn;
-    @Column(nullable = false, name = "price")
-    private BigDecimal price;
-    @Column(name = "description")
-    private String description;
-    @Column(name = "cover_image")
-    private String coverImage;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private User user;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "book_category",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
+            name = "shopping_cart_item",
+            joinColumns = @JoinColumn(name = "shopping_cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "cart_item_id")
     )
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Category> categories;
+    private Set<CartItem> cartItems;
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted = false;
-
-    public Book() {
-    }
-
-    public Book(Long id) {
-        this.id = id;
-    }
 }

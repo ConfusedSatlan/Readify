@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: insert-categories
-      author: nikita
+      author: team
       changes:
         - insert:
             tableName: category
