@@ -1,4 +1,4 @@
-package application.onlinebookstore.dto;
+package application.onlinebookstore.dto.book;
 
 import application.onlinebookstore.validation.Author;
 import application.onlinebookstore.validation.Isbn;

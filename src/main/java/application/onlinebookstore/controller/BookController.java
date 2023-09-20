@@ -1,8 +1,8 @@
 package application.onlinebookstore.controller;
 
-import application.onlinebookstore.dto.BookDto;
-import application.onlinebookstore.dto.BookSearchParametersDto;
-import application.onlinebookstore.dto.CreateBookRequestDto;
+import application.onlinebookstore.dto.book.BookDto;
+import application.onlinebookstore.dto.book.BookSearchParametersDto;
+import application.onlinebookstore.dto.book.CreateBookRequestDto;
 import application.onlinebookstore.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,6 +11,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +59,7 @@ public class BookController {
         return bookService.getBooksByAuthor(author);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     @Operation(summary = "Create a new book",
             description = "Create book from DB in repository")
@@ -65,6 +67,7 @@ public class BookController {
         return bookService.save(bookDto);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete existing book",
@@ -80,6 +83,7 @@ public class BookController {
         return bookService.search(searchParameters);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     @Operation(summary = "Update book",
             description = "Update book in DB")
