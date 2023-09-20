@@ -90,17 +90,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingCartRepository.delete(shoppingCartFromUserId);
     }
 
+    @Override
+    public ShoppingCartDto updateCartItem(Long id, CartItemDtoUpdate cartItemDto) {
+        cartItemService.update(cartItemDto);
+        return shoppingCartMapper.toDto(getShoppingCartFromUserId(id));
+    }
+
     private User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("User with id: " + id
                         + " not found in db")
         );
-    }
-
-    @Override
-    public ShoppingCartDto updateCartItem(Long id, CartItemDtoUpdate cartItemDto) {
-        cartItemService.update(cartItemDto);
-        return shoppingCartMapper.toDto(getShoppingCartFromUserId(id));
     }
 
     private ShoppingCart getShoppingCartFromUserId(Long id) {
