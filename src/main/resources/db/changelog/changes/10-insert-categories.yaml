@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-categories
+      author: nikita
+      changes:
+        - insert:
+            tableName: category
+            columns:
+              - column: { name: name, value: 'Science Fiction' }
+              - column: { name: description, value: 'This category includes books about science fiction, space, the future, and other imaginary worlds. Here you will find adventurous stories where the main characters embark on journeys into uncharted realms of the Universe.' }
+        - insert:
+            tableName: category
+            columns:
+              - column: { name: name, value: 'Romance Novels' }
+              - column: { name: description, value: 'This category encompasses classic and contemporary novels of various genres, from love stories to historical novels and detective mysteries. Here you will discover books that tell intriguing tales of the lives and relationships of the main characters.' }
+        - insert:
+            tableName: category
+            columns:
+              - column: { name: name, value: 'Science and Education' }
+              - column: { name: description, value: 'This category includes books about science fiction, space, the future, and other imaginary worlds. Here you will find adventurous stories where the main characters embark on journeys into uncharted realms of the Universe.' }

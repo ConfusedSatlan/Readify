@@ -1,6 +1,7 @@
 package application.onlinebookstore.service.impl;
 
 import application.onlinebookstore.dto.book.BookDto;
+import application.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
 import application.onlinebookstore.dto.book.BookSearchParametersDto;
 import application.onlinebookstore.dto.book.CreateBookRequestDto;
 import application.onlinebookstore.exception.EntityNotFoundException;
@@ -30,7 +31,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto getBookById(Long id) {
-        return bookMapper.toDto(bookRepository.findById(id)
+        return bookMapper.toDto(bookRepository.findByIdWithCategories(id)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Can't find book by id: " + id)
                 ));
@@ -67,10 +68,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> search(BookSearchParametersDto searchParameters) {
+    public List<BookDtoWithoutCategoryIds> search(BookSearchParametersDto searchParameters) {
         Specification<Book> bookSpecification = bookSpecificationBuilder.build(searchParameters);
         return bookRepository.findAll(bookSpecification).stream()
-                .map(bookMapper::toDto)
+                .map(bookMapper::toDtoWithoutCategories)
                 .toList();
     }
 
