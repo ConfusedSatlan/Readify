@@ -79,14 +79,14 @@ public class CategoryController {
 
     @GetMapping("/search")
     @Operation(summary = "Find categories with several parameters ",
-            description = "Create category and save in DB")
+            description = "Find categories by names")
     public List<CategoryDto> search(CategorySearchParametersDto searchParameters) {
         return categoryService.search(searchParameters);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
-    @Operation(summary = "Update caategory",
+    @Operation(summary = "Update category",
             description = "Update category in DB")
     public CategoryDto update(@PathVariable Long id,
                               @RequestBody CreateCategoryRequestDto updatedBook) {
