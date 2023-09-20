@@ -9,7 +9,6 @@ public record UserLoginRequestDto(@NotNull
                                   @Length(min = 4, max = 40)
                                   @Email
                                   String email,
-                                  @NotNull
                                   @Password
                                   String password) {
 }

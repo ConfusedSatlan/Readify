@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-roles
-      author: team
+      author: Mykyta Zuber
       changes:
         - createTable:
             tableName: role
