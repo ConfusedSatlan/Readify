@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: insert-users
-      author: team
+      author: Mykyta Zuber
       changes:
         - insert:
             tableName: user

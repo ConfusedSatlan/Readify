@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-books-table
-      author: team
+      author: Mykyta Zuber
       changes:
         - createTable:
             tableName: book
