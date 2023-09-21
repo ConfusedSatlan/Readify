@@ -2,19 +2,25 @@ package application.onlinebookstore.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -32,15 +38,30 @@ public class Orders {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private User user;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
+    @Cascade(value = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinTable(
-            name = "order_order_item",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_item__id")
+            name = "orders_order_item",
+            joinColumns = @JoinColumn(name = "orders_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_item_id")
     )
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<OrderItem> cartItems;
+    private Set<OrderItem> orderItems;
+    @Column(name = "order_date", nullable = false)
+    private LocalDateTime orderDate;
+    @Column(name = "shipping_address", nullable = false)
+    private String shippingAddress;
+    @Enumerated(EnumType.STRING)
+    @JoinColumn(name = "status",nullable = false)
+    private Status status;
+    @JoinColumn(name = "total",nullable = false)
+    private BigDecimal total;
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted = false;
+
+    public enum Status {
+        COMPLETED,
+        NOT_COMPLETED
+    }
 }
