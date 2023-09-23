@@ -40,4 +40,12 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Set.of(roleForUser));
         return userMapper.toUserResponseDto(userRepository.save(user));
     }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("User with id: " + id
+                        + " not found in db")
+        );
+    }
 }
