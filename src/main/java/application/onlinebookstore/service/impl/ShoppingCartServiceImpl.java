@@ -1,7 +1,6 @@
 package application.onlinebookstore.service.impl;
 
 import application.onlinebookstore.dto.cartitem.CartItemDto;
-import application.onlinebookstore.dto.cartitem.CartItemDtoUpdate;
 import application.onlinebookstore.dto.cartitem.CreateCartItemDto;
 import application.onlinebookstore.dto.shoppingcart.ShoppingCartDto;
 import application.onlinebookstore.exception.EntityNotFoundException;
@@ -10,13 +9,10 @@ import application.onlinebookstore.mapper.CartItemMapper;
 import application.onlinebookstore.mapper.ShoppingCartMapper;
 import application.onlinebookstore.model.CartItem;
 import application.onlinebookstore.model.ShoppingCart;
-import application.onlinebookstore.model.User;
 import application.onlinebookstore.repository.shoppingcart.ShoppingCartRepository;
-import application.onlinebookstore.repository.user.UserRepository;
 import application.onlinebookstore.service.CartItemService;
 import application.onlinebookstore.service.ShoppingCartService;
 import application.onlinebookstore.service.UserService;
-import java.beans.Transient;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
