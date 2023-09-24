@@ -1,6 +1,5 @@
 package application.onlinebookstore.service;
 
-import application.onlinebookstore.dto.orderitem.OrderItemDto;
 import application.onlinebookstore.dto.orders.CreateOrderDto;
 import application.onlinebookstore.dto.orders.OrderDto;
 import application.onlinebookstore.model.Orders;
