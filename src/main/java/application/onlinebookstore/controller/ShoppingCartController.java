@@ -1,9 +1,11 @@
 package application.onlinebookstore.controller;
 
+import application.onlinebookstore.dto.cartitem.CartItemDto;
 import application.onlinebookstore.dto.cartitem.CartItemDtoUpdate;
 import application.onlinebookstore.dto.cartitem.CreateCartItemDto;
 import application.onlinebookstore.dto.shoppingcart.ShoppingCartDto;
 import application.onlinebookstore.model.User;
+import application.onlinebookstore.service.CartItemService;
 import application.onlinebookstore.service.ShoppingCartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/cart")
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
+    private final CartItemService cartItemService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping
@@ -48,12 +51,10 @@ public class ShoppingCartController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/cart-item/{id}")
     @Operation(summary = "Update quantity of cart item by cart item id, request \"quantity\" ")
-    public ShoppingCartDto updateCartItem(@PathVariable Long id,
-                                          @RequestBody CartItemDtoUpdate cartItemDto,
-                                          Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
+    public CartItemDto updateCartItem(@PathVariable Long id,
+                                      @RequestBody CartItemDtoUpdate cartItemDto) {
         cartItemDto.setId(id);
-        return shoppingCartService.updateCartItem(user.getId(), cartItemDto);
+        return cartItemService.update(cartItemDto);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")

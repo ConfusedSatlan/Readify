@@ -2,36 +2,46 @@ package application.onlinebookstore.service.impl;
 
 import application.onlinebookstore.dto.orderitem.CreateOrderItemDto;
 import application.onlinebookstore.dto.orderitem.OrderItemDto;
-import application.onlinebookstore.exception.EntityNotFoundException;
 import application.onlinebookstore.mapper.OrderItemMapper;
 import application.onlinebookstore.model.Book;
 import application.onlinebookstore.model.OrderItem;
 import application.onlinebookstore.model.Orders;
 import application.onlinebookstore.repository.orderitem.OrderItemRepository;
-import application.onlinebookstore.repository.orders.OrdersRepository;
 import application.onlinebookstore.service.BookService;
 import application.onlinebookstore.service.OrderItemService;
+import application.onlinebookstore.service.OrdersService;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
 @Service
 public class OrderItemServiceImpl implements OrderItemService {
     private final OrderItemRepository orderItemRepository;
-    private final OrdersRepository ordersRepository;
+    private OrdersService ordersService;
     private final BookService bookService;
     private final OrderItemMapper orderItemMapper;
+
+    @Autowired
+    public OrderItemServiceImpl(OrderItemRepository orderItemRepository,
+                                BookService bookService,
+                                OrderItemMapper orderItemMapper) {
+        this.orderItemRepository = orderItemRepository;
+        this.bookService = bookService;
+        this.orderItemMapper = orderItemMapper;
+    }
+
+    @Autowired
+    public void setOrdersService(@Lazy OrdersService ordersService) {
+        this.ordersService = ordersService;
+    }
 
     @Override
     public OrderItemDto createOrderItem(CreateOrderItemDto orderItemDto) {
         Long bookId = orderItemDto.bookId();
         Long orderId = orderItemDto.orderId();
         Integer quantity = orderItemDto.quantity();
-        Orders orderById = ordersRepository.findById(orderId).orElseThrow(
-                () -> new EntityNotFoundException("Order with id: " + orderId
-                        + " not found!")
-        );
+        Orders orderById = ordersService.getEntityOrderById(orderId);
         Book bookById = bookService.getEntityBookById(bookId);
         OrderItem orderItem = new OrderItem();
         orderItem.setOrder(orderById);

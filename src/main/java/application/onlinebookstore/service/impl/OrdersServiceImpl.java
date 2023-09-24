@@ -6,6 +6,7 @@ import application.onlinebookstore.dto.orderitem.OrderItemDto;
 import application.onlinebookstore.dto.orders.CreateOrderDto;
 import application.onlinebookstore.dto.orders.OrderDto;
 import application.onlinebookstore.dto.shoppingcart.ShoppingCartDto;
+import application.onlinebookstore.exception.EntityNotFoundException;
 import application.onlinebookstore.mapper.OrderItemMapper;
 import application.onlinebookstore.mapper.OrderMapper;
 import application.onlinebookstore.model.Orders;
@@ -68,12 +69,10 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public List<OrderItemDto> getOrderItems(Long id, Long userId) {
-        return orderItemService.getOrderItems(id);
-    }
-
-    @Override
-    public OrderItemDto getOrderItem(Long orderId, Long itemId, Long userId) {
-        return orderItemService.getOrderItem(itemId, orderId);
+    public Orders getEntityOrderById(Long id) {
+        return ordersRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Order with id: " + id
+                        + " not found!")
+        );
     }
 }

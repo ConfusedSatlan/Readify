@@ -42,10 +42,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(
-                () -> new EntityNotFoundException("User with id: " + userId
-                        + " doesn't exist!!!")
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("User with id: " + id
+                        + " not found in db")
         );
     }
 }

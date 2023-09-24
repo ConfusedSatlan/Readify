@@ -9,6 +9,6 @@ public class CartItemDtoUpdate {
     @JsonIgnore
     private Long id;
     @DecimalMin(value = "1",
-            message = "Number must be more than 0")
+            message = "Quantity must be more than 0")
     private Integer quantity;
 }

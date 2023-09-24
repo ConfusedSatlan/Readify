@@ -25,5 +25,5 @@ public interface BookService {
 
     BookDto update(Long id, CreateBookRequestDto book);
 
-    Book getEntityBookById(Long bookId);
+    Book getEntityBookById(Long id);
 }

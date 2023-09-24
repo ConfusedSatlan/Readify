@@ -15,6 +15,8 @@ import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -33,6 +35,7 @@ public class ShoppingCart {
     @EqualsAndHashCode.Exclude
     private User user;
     @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade(value = CascadeType.REMOVE)
     @JoinTable(
             name = "shopping_cart_item",
             joinColumns = @JoinColumn(name = "shopping_cart_id"),
