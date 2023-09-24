@@ -36,7 +36,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public List<OrderDto> getOrders(Long userId) {
-        return ordersRepository.findAllById(userId).stream()
+        return ordersRepository.findAllByUserId(userId).stream()
                 .map(orderMapper::toDto)
                 .toList();
     }
