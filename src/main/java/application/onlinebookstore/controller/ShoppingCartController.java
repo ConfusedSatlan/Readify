@@ -60,10 +60,8 @@ public class ShoppingCartController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @DeleteMapping("/cart-item/{id}")
     @Operation(summary = "Delete cart item by cart item id")
-    public void deleteCartItem(@PathVariable Long id,
-                               Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        shoppingCartService.deleteByCartItemId(id, user.getId());
+    public void deleteCartItem(@PathVariable Long id) {
+        cartItemService.deleteById(id);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
