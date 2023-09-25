@@ -10,7 +10,7 @@ import application.onlinebookstore.exception.EntityNotFoundException;
 import application.onlinebookstore.mapper.OrderItemMapper;
 import application.onlinebookstore.mapper.OrderMapper;
 import application.onlinebookstore.model.Orders;
-import application.onlinebookstore.model.User;
+import application.onlinebookstore.model.Users;
 import application.onlinebookstore.repository.orders.OrdersRepository;
 import application.onlinebookstore.service.OrderItemService;
 import application.onlinebookstore.service.OrdersService;
@@ -43,7 +43,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public OrderDto create(CreateOrderDto orderDto, Long userId) {
-        User userById = userService.getUserById(userId);
+        Users userById = userService.getUserById(userId);
         Orders order = new Orders();
         order.setUser(userById);
         order.setOrderItems(new HashSet<>());

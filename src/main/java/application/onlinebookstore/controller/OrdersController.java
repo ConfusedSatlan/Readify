@@ -3,7 +3,7 @@ package application.onlinebookstore.controller;
 import application.onlinebookstore.dto.orderitem.OrderItemDto;
 import application.onlinebookstore.dto.orders.CreateOrderDto;
 import application.onlinebookstore.dto.orders.OrderDto;
-import application.onlinebookstore.model.User;
+import application.onlinebookstore.model.Users;
 import application.onlinebookstore.service.OrderItemService;
 import application.onlinebookstore.service.OrdersService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +31,7 @@ public class OrdersController {
     @GetMapping
     @Operation(summary = "Get all user's orders")
     public List<OrderDto> getOrders(Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
+        Users user = (Users) authentication.getPrincipal();
         return ordersService.getOrders(user.getId());
     }
 
@@ -40,7 +40,7 @@ public class OrdersController {
     @Operation(summary = "Create a new order")
     public OrderDto createOrder(@RequestBody CreateOrderDto orderDto,
                                 Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
+        Users user = (Users) authentication.getPrincipal();
         return ordersService.create(orderDto, user.getId());
     }
 

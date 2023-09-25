@@ -33,7 +33,7 @@ public class ShoppingCart {
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private User user;
+    private Users user;
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade(value = CascadeType.REMOVE)
     @JoinTable(

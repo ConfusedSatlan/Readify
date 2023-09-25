@@ -37,7 +37,7 @@ public class Orders {
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private User user;
+    private Users user;
     @OneToMany(fetch = FetchType.EAGER)
     @Cascade(value = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinTable(
