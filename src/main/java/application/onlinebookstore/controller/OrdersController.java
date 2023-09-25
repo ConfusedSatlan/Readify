@@ -4,6 +4,7 @@ import application.onlinebookstore.dto.orderitem.OrderItemDto;
 import application.onlinebookstore.dto.orders.CreateOrderDto;
 import application.onlinebookstore.dto.orders.OrderDto;
 import application.onlinebookstore.model.User;
+import application.onlinebookstore.service.OrderItemService;
 import application.onlinebookstore.service.OrdersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/orders")
 public class OrdersController {
     private final OrdersService ordersService;
+    private final OrderItemService orderItemService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping
@@ -45,19 +47,15 @@ public class OrdersController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/{id}/items")
     @Operation(summary = "Get all items of order")
-    public List<OrderItemDto> getOrderItems(@PathVariable Long id,
-                                            Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        return ordersService.getOrderItems(id, user.getId());
+    public List<OrderItemDto> getOrderItems(@PathVariable Long id) {
+        return orderItemService.getOrderItems(id);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/{orderId}/items/{itemId}")
     @Operation(summary = "Get single item of order by itemId")
     public OrderItemDto getOrderItem(@PathVariable Long orderId,
-                                     @PathVariable Long itemId,
-                                     Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        return ordersService.getOrderItem(orderId, itemId, user.getId());
+                                     @PathVariable Long itemId) {
+        return orderItemService.getOrderItem(itemId, orderId);
     }
 }

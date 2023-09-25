@@ -1,8 +1,8 @@
 package application.onlinebookstore.service;
 
-import application.onlinebookstore.dto.orderitem.OrderItemDto;
 import application.onlinebookstore.dto.orders.CreateOrderDto;
 import application.onlinebookstore.dto.orders.OrderDto;
+import application.onlinebookstore.model.Orders;
 import java.util.List;
 
 public interface OrdersService {
@@ -11,7 +11,5 @@ public interface OrdersService {
 
     OrderDto create(CreateOrderDto orderDto, Long userId);
 
-    List<OrderItemDto> getOrderItems(Long id, Long userId);
-
-    OrderItemDto getOrderItem(Long orderId, Long itemId, Long userId);
+    Orders getEntityOrderById(Long id);
 }

@@ -8,5 +8,5 @@ import application.onlinebookstore.model.User;
 public interface UserService {
     UserResponseDto register(UserRegisterRequestDto request) throws RegistrationException;
 
-    User getUserById(Long userId);
+    User getUserById(Long id);
 }
