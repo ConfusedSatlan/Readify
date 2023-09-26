@@ -56,13 +56,12 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public CartItemDto update(CartItemDtoUpdate updatedCart) {
-        Long cartItemId = updatedCart.getId();
+    public CartItemDto update(CartItemDtoUpdate updatedCart, Long cartItemId) {
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(
                 () -> new EntityNotFoundException("Cart Item with id: " + cartItemId
                         + " not found!")
         );
-        cartItem.setQuantity(updatedCart.getQuantity());
+        cartItem.setQuantity(updatedCart.quantity());
         return cartItemMapper.toDto(cartItemRepository.save(cartItem));
     }
 }

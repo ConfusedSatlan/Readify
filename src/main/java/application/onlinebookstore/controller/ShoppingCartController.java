@@ -54,8 +54,7 @@ public class ShoppingCartController {
     @Operation(summary = "Update quantity of cart item by cart item id, request \"quantity\" ")
     public CartItemDto updateCartItem(@PathVariable Long id,
                                       @RequestBody @Valid CartItemDtoUpdate cartItemDto) {
-        cartItemDto.setId(id);
-        return cartItemService.update(cartItemDto);
+        return cartItemService.update(cartItemDto, id);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
