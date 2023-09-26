@@ -52,7 +52,7 @@ public class OrdersServiceImpl implements OrdersService {
         order.setOrderItems(new HashSet<>());
         order.setOrderDate(LocalDateTime.now());
         order.setShippingAddress(orderDto.shippingAddress());
-        order.setStatus(Orders.Status.NOT_COMPLETED);
+        order.setStatus(Orders.Status.CREATED);
         order.setTotal(BigDecimal.ZERO);
         order = ordersRepository.save(order);
         ShoppingCartDto shoppingCart = shoppingCartService.getShoppingCart(userId);

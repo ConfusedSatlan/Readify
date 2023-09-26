@@ -60,6 +60,7 @@ public class Orders {
     private boolean isDeleted = false;
 
     public enum Status {
+        CREATED,
         COMPLETED,
         NOT_COMPLETED
     }
