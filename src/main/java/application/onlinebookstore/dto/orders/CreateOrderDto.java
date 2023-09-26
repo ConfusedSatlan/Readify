@@ -1,4 +1,9 @@
 package application.onlinebookstore.dto.orders;
 
-public record CreateOrderDto(String shippingAddress) {
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+
+public record CreateOrderDto(@NotNull
+                             @Length(min = 4)
+                             String shippingAddress) {
 }
