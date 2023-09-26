@@ -62,6 +62,7 @@ public class Orders {
 
     public enum Status {
         CREATED,
+        CANCELLED,
         COMPLETED,
         NOT_COMPLETED
     }
