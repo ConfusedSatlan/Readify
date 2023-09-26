@@ -44,13 +44,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCartDto getShoppingCart(Long id) {
-        ShoppingCart shoppingCart = getShoppingCartFromUserId(id);
+        ShoppingCart shoppingCart = getShoppingCartByUserId(id);
         return shoppingCartMapper.toDto(shoppingCart);
     }
 
     @Override
     public void deleteByCartItemId(Long id, Long userId) {
-        ShoppingCart shoppingCartForDelete = getShoppingCartFromUserId(userId);
+        ShoppingCart shoppingCartForDelete = getShoppingCartByUserId(userId);
         Set<CartItem> cartItems = shoppingCartForDelete.getCartItems();
         Optional<CartItem> first = cartItems.stream()
                 .filter(cartItem -> Objects.equals(cartItem.getId(), id))
@@ -62,7 +62,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void deleteByBookId(Long id, Long userId) {
-        ShoppingCart shoppingCartFromUserId = getShoppingCartFromUserId(userId);
+        ShoppingCart shoppingCartFromUserId = getShoppingCartByUserId(userId);
         Set<CartItem> cartItems = shoppingCartFromUserId.getCartItems();
         Optional<CartItem> first = cartItems.stream()
                 .filter(cartItem -> Objects.equals(cartItem.getBook().getId(), id))
@@ -72,7 +72,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void delete(Long id) {
-        ShoppingCart shoppingCartFromUserId = getShoppingCartFromUserId(id);
+        ShoppingCart shoppingCartFromUserId = getShoppingCartByUserId(id);
         shoppingCartRepository.delete(shoppingCartFromUserId);
     }
 
@@ -95,7 +95,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartMapper.toDto(shoppingCartRepository.save(savedShoppingCart));
     }
 
-    private ShoppingCart getShoppingCartFromUserId(Long id) {
+    private ShoppingCart getShoppingCartByUserId(Long id) {
         return shoppingCartRepository.findByUserId(id).orElseThrow(
                 () -> new ShoppingCartException("Shopping cart is empty! In user id: " + id
                         + " Add some items."));

@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Mykyta Zuber
       changes:
         - insert:
-            tableName: user
+            tableName: users
             columns:
               - column: { name: email, value: "user1@example.com" }
               - column: { name: password, value: "$2a$12$G.ZgX13fiB4d3HNlgKt0Pu.x6hMx0qgMWBRHBOFIXqhopTG7nNF66" }  # This is a hashed password for "password1"
@@ -12,7 +12,7 @@ databaseChangeLog:
               - column: { name: last_name, value: 'Doe' }
               - column: { name: shipping_address, value: "123 Main St" }
         - insert:
-            tableName: user
+            tableName: users
             columns:
               - column: { name: email, value: 'user2@example.com' }
               - column: { name: password, value: '$2a$12$IRCJ6U.ClTBit9iWFAv53eop2QkTkG.imzZbF4ct/LS6BUEXMK5DG' }  # This is a hashed password for "password2"
@@ -20,7 +20,7 @@ databaseChangeLog:
               - column: { name: last_name, value: 'Smith' }
               - column: { name: shipping_address, value: "456 Elm St" }
         - insert:
-            tableName: user
+            tableName: users
             columns:
               - column: { name: email, value: 'user3@example.com' }
               - column: { name: password, value: '$2a$12$beYMudFx3/FH0O389OOSx.KBtSdMU2Pi19F194hNU0cgrSIOQWXJq' }  # This is a hashed password for "password3"

@@ -2,7 +2,6 @@ package application.onlinebookstore.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,8 +32,8 @@ public class ShoppingCart {
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private User user;
-    @ManyToMany(fetch = FetchType.EAGER)
+    private Users user;
+    @ManyToMany
     @Cascade(value = CascadeType.REMOVE)
     @JoinTable(
             name = "shopping_cart_item",
