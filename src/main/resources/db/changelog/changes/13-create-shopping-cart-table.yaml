@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-category
+      id: create-shopping-cart
       author: Mykyta Zuber
       changes:
         - createTable:
-            tableName: category
+            tableName: shopping_cart
             columns:
               - column:
                   name: id
@@ -14,14 +14,12 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
-                  type: varchar(255)
+                  name: user_id
+                  type: BIGINT
                   constraints:
                     nullable: false
-                    unique: true
-              - column:
-                  name: description
-                  type: varchar(255)
+                    foreignKeyName: fk_sc_user_id
+                    references: users(id)
               - column:
                   name: is_deleted
                   type: boolean

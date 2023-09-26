@@ -6,7 +6,7 @@ import application.onlinebookstore.exception.EntityNotFoundException;
 import application.onlinebookstore.exception.RegistrationException;
 import application.onlinebookstore.mapper.UserMapper;
 import application.onlinebookstore.model.Role;
-import application.onlinebookstore.model.User;
+import application.onlinebookstore.model.Users;
 import application.onlinebookstore.repository.user.RoleRepository;
 import application.onlinebookstore.repository.user.UserRepository;
 import application.onlinebookstore.service.UserService;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
                     + " is already registered! Use another email or login with: "
                     + request.email());
         }
-        User user = userMapper.toModel(request);
+        Users user = userMapper.toModel(request);
         user.setPassword(passwordEncoder.encode(request.password()));
         Role roleForUser = roleRepository.findByName(Role.RoleName.ROLE_USER).orElseThrow(
                 () -> new EntityNotFoundException("Can't find default role: "
@@ -39,5 +39,13 @@ public class UserServiceImpl implements UserService {
                         + request.email()));
         user.setRoles(Set.of(roleForUser));
         return userMapper.toUserResponseDto(userRepository.save(user));
+    }
+
+    @Override
+    public Users getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("User with id: " + id
+                        + " not found in db")
+        );
     }
 }

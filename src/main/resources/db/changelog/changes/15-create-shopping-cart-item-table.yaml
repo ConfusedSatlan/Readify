@@ -1,22 +1,22 @@
 databaseChangeLog:
   - changeSet:
-      id: create-user-role
+      id: create-shopping_cart_item
       author: Mykyta Zuber
       changes:
         - createTable:
-            tableName: user_role
+            tableName: shopping_cart_item
             columns:
               - column:
-                  name: user_id
+                  name: shopping_cart_id
                   type: bigint
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_ur_user_id
-                    references: users(id)
+                    foreignKeyName: fk_sci_shopping_cart_id
+                    references: shopping_cart(id)
               - column:
-                  name: role_id
+                  name: cart_item_id
                   type: bigint
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_ur_role_id
-                    references: role(id)
+                    foreignKeyName: fk_sci_cart_item_id
+                    references: cart_item(id)
