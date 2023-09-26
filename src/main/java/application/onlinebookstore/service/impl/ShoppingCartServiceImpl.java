@@ -13,6 +13,7 @@ import application.onlinebookstore.repository.shoppingcart.ShoppingCartRepositor
 import application.onlinebookstore.service.CartItemService;
 import application.onlinebookstore.service.ShoppingCartService;
 import application.onlinebookstore.service.UserService;
+import jakarta.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final CartItemMapper cartItemMapper;
 
     @Override
+    @Transactional
     public ShoppingCartDto addCartItem(CreateCartItemDto cartItemDtoRequest, Long userId) {
         Optional<ShoppingCart> shoppingCartByUserId =
                 shoppingCartRepository.findByUserId(userId);
