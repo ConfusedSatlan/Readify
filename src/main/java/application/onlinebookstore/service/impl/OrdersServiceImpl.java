@@ -9,6 +9,7 @@ import application.onlinebookstore.dto.shoppingcart.ShoppingCartDto;
 import application.onlinebookstore.exception.EntityNotFoundException;
 import application.onlinebookstore.mapper.OrderItemMapper;
 import application.onlinebookstore.mapper.OrderMapper;
+import application.onlinebookstore.model.OrderItem;
 import application.onlinebookstore.model.Orders;
 import application.onlinebookstore.model.Users;
 import application.onlinebookstore.repository.orders.OrdersRepository;
@@ -16,6 +17,7 @@ import application.onlinebookstore.service.OrderItemService;
 import application.onlinebookstore.service.OrdersService;
 import application.onlinebookstore.service.ShoppingCartService;
 import application.onlinebookstore.service.UserService;
+import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -42,6 +44,7 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    @Transactional
     public OrderDto create(CreateOrderDto orderDto, Long userId) {
         Users userById = userService.getUserById(userId);
         Orders order = new Orders();
@@ -49,12 +52,13 @@ public class OrdersServiceImpl implements OrdersService {
         order.setOrderItems(new HashSet<>());
         order.setOrderDate(LocalDateTime.now());
         order.setShippingAddress(orderDto.shippingAddress());
-        order.setStatus(Orders.Status.NOT_COMPLETED);
-        order.setTotal(new BigDecimal(0));
+        order.setStatus(Orders.Status.CREATED);
+        order.setTotal(BigDecimal.ZERO);
         order = ordersRepository.save(order);
         ShoppingCartDto shoppingCart = shoppingCartService.getShoppingCart(userId);
         Set<CartItemDto> cartItems = shoppingCart.getCartItems();
         BigDecimal total = new BigDecimal(0);
+        Set<OrderItem> orderItems = order.getOrderItems();
         for (CartItemDto cartItem : cartItems) {
             CreateOrderItemDto orderItemDtoParams = new CreateOrderItemDto(
                     order.getId(),
@@ -63,7 +67,7 @@ public class OrdersServiceImpl implements OrdersService {
             );
             OrderItemDto orderItemDto = orderItemService.createOrderItem(orderItemDtoParams);
             total = total.add(orderItemDto.getPrice());
-            order.getOrderItems().add(orderItemMapper.toModel(orderItemDto));
+            orderItems.add(orderItemMapper.toModel(orderItemDto));
         }
         order.setTotal(total);
         order.setStatus(Orders.Status.COMPLETED);

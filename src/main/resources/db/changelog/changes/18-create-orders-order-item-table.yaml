@@ -10,13 +10,13 @@ databaseChangeLog:
                   name: orders_id
                   type: bigint
                   constraints:
-                    foreignKeyName: shopping_cart_id_fk
-                    primaryKey: true
+                    foreignKeyName: fk_ooi_orders_id
+                    references: orders(id)
                     nullable: false
               - column:
                   name: order_item_id
                   type: bigint
                   constraints:
-                    foreignKeyName: order_item_id_fk
-                    primaryKey: true
+                    foreignKeyName: fk_ooi_order_item_id
+                    references: order_item(id)
                     nullable: false
