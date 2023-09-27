@@ -51,18 +51,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void deleteByCartItemId(Long id, Long userId) {
-        ShoppingCart shoppingCartForDelete = getShoppingCartByUserId(userId);
-        Set<CartItem> cartItems = shoppingCartForDelete.getCartItems();
-        Optional<CartItem> first = cartItems.stream()
-                .filter(cartItem -> Objects.equals(cartItem.getId(), id))
-                .findFirst();
-        first.ifPresent(cartItem -> cartItemService.deleteById(cartItem.getId()));
-        first.ifPresent(cartItems::remove);
-        shoppingCartRepository.save(shoppingCartForDelete);
-    }
-
-    @Override
     public void deleteByBookId(Long id, Long userId) {
         ShoppingCart shoppingCartFromUserId = getShoppingCartByUserId(userId);
         Set<CartItem> cartItems = shoppingCartFromUserId.getCartItems();

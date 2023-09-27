@@ -9,8 +9,6 @@ public interface ShoppingCartService {
 
     ShoppingCartDto getShoppingCart(Long userId);
 
-    void deleteByCartItemId(Long id, Long userId);
-
     void deleteByBookId(Long id, Long userId);
 
     void delete(Long id);
