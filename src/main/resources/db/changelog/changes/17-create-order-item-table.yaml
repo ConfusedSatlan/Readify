@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-order-item-table
+      author: Mykyta Zuber
+      changes:
+        - createTable:
+            tableName: order_item
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: orders_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_oi_orders_id
+                    references: orders(id)
+              - column:
+                  name: book_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_oi_book_id
+                    references: book(id)
+              - column:
+                  name: quantity
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: numeric
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_deleted
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
