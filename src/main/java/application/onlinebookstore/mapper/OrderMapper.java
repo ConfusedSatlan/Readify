@@ -10,10 +10,12 @@ import java.util.Set;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(config = MapperConfig.class, uses = OrderItemMapper.class)
 public interface OrderMapper {
+    @Mapping(source = "orderDate", target = "orderDate", dateFormat = "yyyy-MM-dd HH:mm:ss")
     OrderDto toDto(Orders order);
 
     Orders toModel(CreateOrderDto orderDto);

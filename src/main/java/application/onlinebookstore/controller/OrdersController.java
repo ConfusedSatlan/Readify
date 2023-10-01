@@ -8,6 +8,7 @@ import application.onlinebookstore.service.OrderItemService;
 import application.onlinebookstore.service.OrdersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +28,7 @@ public class OrdersController {
     private final OrdersService ordersService;
     private final OrderItemService orderItemService;
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping
     @Operation(summary = "Get all user's orders")
     public List<OrderDto> getOrders(Authentication authentication) {
@@ -38,20 +39,20 @@ public class OrdersController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping
     @Operation(summary = "Create a new order")
-    public OrderDto createOrder(@RequestBody CreateOrderDto orderDto,
+    public OrderDto createOrder(@RequestBody @Valid CreateOrderDto orderDto,
                                 Authentication authentication) {
         Users user = (Users) authentication.getPrincipal();
         return ordersService.create(orderDto, user.getId());
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}/items")
     @Operation(summary = "Get all items of order")
     public List<OrderItemDto> getOrderItems(@PathVariable Long id) {
         return orderItemService.getOrderItems(id);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/{orderId}/items/{itemId}")
     @Operation(summary = "Get single item of order by itemId")
     public OrderItemDto getOrderItem(@PathVariable Long orderId,

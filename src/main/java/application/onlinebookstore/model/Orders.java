@@ -33,12 +33,12 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Users user;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     @Cascade(value = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinTable(
             name = "orders_order_item",
@@ -61,6 +61,8 @@ public class Orders {
     private boolean isDeleted = false;
 
     public enum Status {
+        CREATED,
+        CANCELLED,
         COMPLETED,
         NOT_COMPLETED
     }
