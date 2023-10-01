@@ -47,14 +47,7 @@ public class OrdersServiceImpl implements OrdersService {
     @Transactional
     public OrderDto create(CreateOrderDto orderDto, Long userId) {
         Users userById = userService.getUserById(userId);
-        Orders order = new Orders();
-        order.setUser(userById);
-        order.setOrderItems(new HashSet<>());
-        order.setOrderDate(LocalDateTime.now());
-        order.setShippingAddress(orderDto.shippingAddress());
-        order.setStatus(Orders.Status.CREATED);
-        order.setTotal(BigDecimal.ZERO);
-        order = ordersRepository.save(order);
+        Orders order = createNewOrder(userById, orderDto);
         ShoppingCartDto shoppingCart = shoppingCartService.getShoppingCart(userId);
         Set<CartItemDto> cartItems = shoppingCart.getCartItems();
         BigDecimal total = BigDecimal.ZERO;
@@ -72,6 +65,17 @@ public class OrdersServiceImpl implements OrdersService {
         order.setTotal(total);
         order.setStatus(Orders.Status.COMPLETED);
         return orderMapper.toDto(ordersRepository.save(order));
+    }
+
+    private Orders createNewOrder(Users user, CreateOrderDto orderDto) {
+        Orders order = new Orders();
+        order.setUser(user);
+        order.setOrderItems(new HashSet<>());
+        order.setOrderDate(LocalDateTime.now());
+        order.setShippingAddress(orderDto.shippingAddress());
+        order.setStatus(Orders.Status.CREATED);
+        order.setTotal(BigDecimal.ZERO);
+        return ordersRepository.save(order);
     }
 
     @Override

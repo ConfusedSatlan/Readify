@@ -1,9 +1,9 @@
 package application.onlinebookstore.config;
 
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 
-public class CustomMySQLContainer extends MySQLContainer<CustomMySQLContainer> {
-    private static final String DB_IMAGE = "mysql:8";
+public class CustomMySQLContainer extends  PostgreSQLContainer<CustomMySQLContainer> {
+    private static final String DB_IMAGE = "postgres:latest";
     private static final String DB_URL = "TEST_DB_URL";
     private static final String DB_USERNAME = "TEST_DB_USERNAME";
     private static final String DB_PASSWORD = "TEST_DB_PASSWORD";

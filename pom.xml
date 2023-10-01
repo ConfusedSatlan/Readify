@@ -70,14 +70,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
-			<artifactId>mysql</artifactId>
+			<artifactId>postgresql</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<scope>test</scope>
-			<version>8.0.33</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
