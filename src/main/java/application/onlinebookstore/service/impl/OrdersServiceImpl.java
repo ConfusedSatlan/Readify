@@ -50,11 +50,11 @@ public class OrdersServiceImpl implements OrdersService {
         order.setOrderDate(LocalDateTime.now());
         order.setShippingAddress(orderDto.shippingAddress());
         order.setStatus(Orders.Status.NOT_COMPLETED);
-        order.setTotal(new BigDecimal(0));
+        order.setTotal(BigDecimal.ZERO);
         order = ordersRepository.save(order);
         ShoppingCartDto shoppingCart = shoppingCartService.getShoppingCart(userId);
         Set<CartItemDto> cartItems = shoppingCart.getCartItems();
-        BigDecimal total = new BigDecimal(0);
+        BigDecimal total = BigDecimal.ZERO;
         for (CartItemDto cartItem : cartItems) {
             CreateOrderItemDto orderItemDtoParams = new CreateOrderItemDto(
                     order.getId(),
