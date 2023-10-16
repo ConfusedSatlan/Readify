@@ -118,9 +118,13 @@ SPRING_LOCAL_PORT:8088
 # Debugging port for the API
 DEBUG_PORT=5005
 ```
-## 🧑Contribution
+## Contribution
 
 We welcome contributions from the community to enhance the Bookstore project. Whether you want to fix a bug, improve an existing feature, or propose a new one, your contributions are valuable to us.
 
 **BookStore API using case**
 - [Video Description on Vimeo](https://vimeo.com/870006994/6d32681cac?share=copy)
+
+## License
+
+This project is licensed under the MIT license. Feel free to edit and distribute this template as you like.
