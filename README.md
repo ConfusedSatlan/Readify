@@ -28,7 +28,7 @@ Before you begin, make sure you have the following prerequisites in place:
 
 - **Integrated Development Environment (IDE):** You should have a preferred IDE, such as IntelliJ IDEA, for coding, debugging, and project management.
 
-- **Docker:** Proficiency in using Docker for containerization to package and run your application.
+- **Docker:** Using Docker for containerization to package and run your application.
 
 - **Spring Boot:** Familiarity with Spring Boot to create web services and APIs efficiently.
 
@@ -46,16 +46,18 @@ This project focuses on building a web API in Java using Spring Boot and contain
 
    ```bash
    git clone https://github.com/ConfusedSatlan/online-book-store.git
+   ```
 Navigate to the project directory:
 
-bash
-Copy code
+```bash 
 cd bookstore-api
+```
+
 Build and run the Docker containers:
 
-bash
-Copy code
+```bash
 docker-compose up --build
+```
 The API should now be accessible at http://localhost:your-port (replace your-port with the actual port number).
 
 ## Tech stack
