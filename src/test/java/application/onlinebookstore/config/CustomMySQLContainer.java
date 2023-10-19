@@ -1,0 +1,35 @@
+package application.onlinebookstore.config;
+
+import org.testcontainers.containers.PostgreSQLContainer;
+
+public class CustomMySQLContainer extends  PostgreSQLContainer<CustomMySQLContainer> {
+    private static final String DB_IMAGE = "postgres:latest";
+    private static final String DB_URL = "TEST_DB_URL";
+    private static final String DB_USERNAME = "TEST_DB_USERNAME";
+    private static final String DB_PASSWORD = "TEST_DB_PASSWORD";
+    private static CustomMySQLContainer container;
+
+    private CustomMySQLContainer() {
+        super(DB_IMAGE);
+    }
+
+    public static CustomMySQLContainer getInstance() {
+        if (container == null) {
+            container = new CustomMySQLContainer();
+        }
+        return container;
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        System.setProperty(DB_URL, container.getJdbcUrl());
+        System.setProperty(DB_USERNAME, container.getUsername());
+        System.setProperty(DB_PASSWORD, container.getPassword());
+    }
+
+    @Override
+    public void stop() {
+
+    }
+}
