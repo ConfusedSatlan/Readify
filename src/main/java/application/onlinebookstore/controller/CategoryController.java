@@ -47,8 +47,8 @@ public class CategoryController {
     }
 
     @GetMapping("/by-name")
-    @Operation(summary = "Get category by title",
-            description = "Get category from DB by title")
+    @Operation(summary = "Get category by name",
+            description = "Get category from DB by name")
     public List<CategoryDto> getCategoriesByName(@RequestParam String name) {
         return categoryService.getCategoriesByName(name);
     }

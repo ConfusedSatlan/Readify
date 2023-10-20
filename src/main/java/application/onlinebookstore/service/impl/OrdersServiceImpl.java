@@ -59,7 +59,8 @@ public class OrdersServiceImpl implements OrdersService {
                     cartItem.getQuantity()
             );
             OrderItemDto orderItemDto = orderItemService.createOrderItem(orderItemDtoParams);
-            total = total.add(orderItemDto.getPrice());
+            total = total.add(orderItemDto.getPrice()
+                    .multiply(BigDecimal.valueOf(orderItemDto.getQuantity())));
             orderItems.add(orderItemMapper.toModel(orderItemDto));
         }
         order.setTotal(total);
