@@ -1,5 +1,7 @@
 # Bookstore API
 
+OpenAPI: [http://ec2-51-20-135-181.eu-north-1.compute.amazonaws.com/api/swagger-ui/index.html#](http://ec2-51-20-135-181.eu-north-1.compute.amazonaws.com/api/swagger-ui/index.html#)
+
 The Bookstore API is a RESTful web service designed to facilitate the purchase of books online. It provides a range of endpoints for browsing books and categories, managing a shopping cart, and placing orders. This README guide will help you get started with setting up and using the API.
 
 ## Table of Contents
