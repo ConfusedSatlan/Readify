@@ -1,11 +1,10 @@
-delete from book_category;
-delete from category;
-delete from user_role;
-delete from role;
-delete from shopping_cart_cart_item;
-delete from cart_item;
-delete from shopping_cart;
-delete from order_item;
-delete from orders;
-delete from user;
-delete from book;
+DO $$
+    DECLARE
+        table_name text;
+    BEGIN
+        FOR table_name IN (SELECT table_name FROM information_schema.tables WHERE table_schema = 'test' AND table_type = 'BASE TABLE')
+            LOOP
+                EXECUTE 'DROP TABLE IF EXISTS ' || table_name || ' CASCADE';
+            END LOOP;
+    END;
+$$;

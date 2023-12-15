@@ -7,10 +7,14 @@ import application.onlinebookstore.dto.book.CreateBookRequestDto;
 import application.onlinebookstore.exception.EntityNotFoundException;
 import application.onlinebookstore.mapper.BookMapper;
 import application.onlinebookstore.model.Book;
+import application.onlinebookstore.model.Category;
 import application.onlinebookstore.repository.book.BookRepository;
+import application.onlinebookstore.repository.book.CategoryRepository;
 import application.onlinebookstore.repository.book.impl.BookSpecificationBuilder;
 import application.onlinebookstore.service.BookService;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -20,12 +24,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
     private final BookMapper bookMapper;
     private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
     public BookDto save(CreateBookRequestDto bookDto) {
-        Book savedBook = bookRepository.save(bookMapper.toModel(bookDto));
+        Book newBook = bookMapper.toModel(bookDto);
+        Set<Category> categories = new HashSet<>();
+        for (Long idCategory : bookDto.categoryIds()) {
+            categories.add(categoryRepository.findById(idCategory).orElseThrow(
+                    () -> new EntityNotFoundException("Category with id: "
+                            + idCategory + " doesn't exist")
+            ));
+        }
+        newBook.setCategories(categories);
+        Book savedBook = bookRepository.save(newBook);
         return bookMapper.toDto(savedBook);
     }
 
