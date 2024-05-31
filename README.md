@@ -1,4 +1,4 @@
-# Bookstore API
+# Readify API
 
 OpenAPI: [http://ec2-51-20-135-181.eu-north-1.compute.amazonaws.com/api/swagger-ui/index.html#](http://ec2-51-20-135-181.eu-north-1.compute.amazonaws.com/api/swagger-ui/index.html#)
 
